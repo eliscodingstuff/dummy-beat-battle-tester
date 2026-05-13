@@ -1,0 +1,28 @@
+IMGUI_INCLUDE_PATHS:
+- C:\Users\16514\Documents\myStuff\CSF\imgui
+- C:\Users\16514\Documents\myStuff\CSF\imgui\backends
+
+DIRECTX_LIBS:
+- d3d11.lib
+- dxgi.lib  
+- d3dcompiler.lib
+
+To manually add to BBACPlugin.vcxproj:
+
+In all 4 ItemDefinitionGroup sections (Debug|Win32, Debug|x64, Release|Win32, Release|x64):
+
+1. Find the line:
+   <AdditionalIncludeDirectories>C:\Users\16514\Documents\myStuff\CSF\VST_SDK\vst3sdk;C:\Users\16514\AppData\Local\Programs\Python\Python312\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+
+2. Replace with:
+   <AdditionalIncludeDirectories>C:\Users\16514\Documents\myStuff\CSF\VST_SDK\vst3sdk;C:\Users\16514\Documents\myStuff\CSF\imgui;C:\Users\16514\Documents\myStuff\CSF\imgui\backends;C:\Users\16514\AppData\Local\Programs\Python\Python312\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+
+3. Find the line:
+   <AdditionalDependencies>python312.lib;%(AdditionalDependencies)</AdditionalDependencies>
+
+4. Replace with:
+   <AdditionalDependencies>python312.lib;d3d11.lib;dxgi.lib;d3dcompiler.lib;%(AdditionalDependencies)</AdditionalDependencies>
+
+Do this for all 4 configurations!
+
+After saving, close and reopen Visual Studio. IntelliSense will stop complaining about ImGui includes.

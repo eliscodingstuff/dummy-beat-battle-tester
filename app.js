@@ -5,10 +5,16 @@ class UserPrefs {
     constructor() {
         this.username = "";
         this.password = "";
+        this.email = "";
         this.sample_destination = "";
         this.project_folder = "";
         this.preferred_daw = "";
         this.is_logged_in = false;
+        this.audio_export_directory = "";
+        this.autoLoc_directory = "";
+        this.config_manager_directory = "";
+        this.anticheat_directory = "C:/Program Files/Common Files/VST3";
+        this.anticheat_installed = false;
 
         this.loadFromStorage();
     }
@@ -17,6 +23,7 @@ class UserPrefs {
         return !!(
             this.username &&
             this.password &&
+            this.email &&
             this.sample_destination &&
             this.project_folder &&
             this.preferred_daw
@@ -27,10 +34,16 @@ class UserPrefs {
         const data = {
             username: this.username,
             password: this.password,
+            email: this.email,
             sample_destination: this.sample_destination,
             project_folder: this.project_folder,
             preferred_daw: this.preferred_daw,
-            is_logged_in: this.is_logged_in
+            is_logged_in: this.is_logged_in,
+            audio_export_directory: this.audio_export_directory,
+            autoLoc_directory: this.autoLoc_directory,
+            config_manager_directory: this.config_manager_directory,
+            anticheat_directory: this.anticheat_directory,
+            anticheat_installed: this.anticheat_installed
         };
         localStorage.setItem('userPrefs', JSON.stringify(data));
     }
@@ -41,10 +54,16 @@ class UserPrefs {
             const parsed = JSON.parse(data);
             this.username = parsed.username || "";
             this.password = parsed.password || "";
+            this.email = parsed.email || "";
             this.sample_destination = parsed.sample_destination || "";
             this.project_folder = parsed.project_folder || "";
             this.preferred_daw = parsed.preferred_daw || "";
             this.is_logged_in = parsed.is_logged_in || false;
+            this.audio_export_directory = parsed.audio_export_directory || "";
+            this.autoLoc_directory = parsed.autoLoc_directory || "";
+            this.config_manager_directory = parsed.config_manager_directory || "";
+            this.anticheat_directory = parsed.anticheat_directory || "C:/Program Files/Common Files/VST3";
+            this.anticheat_installed = parsed.anticheat_installed || false;
         }
     }
 }
@@ -153,24 +172,13 @@ class SignInScreen {
                 </div>
 
                 <div class="form-group">
+                    <label class="form-label">Email:</label>
+                    <input type="email" class="form-input" id="emailInput" value="${this.userPrefs.email}">
+                </div>
+
+                <div class="form-group">
                     <label class="form-label">Password:</label>
                     <input type="password" class="form-input" id="passwordInput" value="${this.userPrefs.password}">
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Sample Destination Folder:</label>
-                    <div class="input-group">
-                        <input type="text" class="form-input" id="sampleInput" value="${this.userPrefs.sample_destination}" placeholder="C:/Users/YourName/Music/Samples">
-                    </div>
-                    <small class="input-hint">Enter the full path where samples should be extracted</small>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Project Folder:</label>
-                    <div class="input-group">
-                        <input type="text" class="form-input" id="projectInput" value="${this.userPrefs.project_folder}" placeholder="C:/Users/YourName/Music/Projects">
-                    </div>
-                    <small class="input-hint">Enter the full path to your project folder</small>
                 </div>
 
                 <label class="daw-label">Preferred DAW:</label>
@@ -182,6 +190,8 @@ class SignInScreen {
 
                 <div class="button-frame">
                     <button class="btn" id="signInBtn">Sign In</button>
+                    <button class="btn btn-google" id="signInGoogleBtn">Sign in with Google</button>
+                    <button class="btn btn-discord" id="signInDiscordBtn">Sign in with Discord</button>
                     <button class="btn" id="loginNavBtn">Login</button>
                 </div>
             </div>
@@ -190,6 +200,8 @@ class SignInScreen {
 
     attachEvents() {
         document.getElementById('signInBtn').addEventListener('click', () => this.signIn());
+        document.getElementById('signInGoogleBtn').addEventListener('click', () => this.signInWithGoogle());
+        document.getElementById('signInDiscordBtn').addEventListener('click', () => this.signInWithDiscord());
         document.getElementById('loginNavBtn').addEventListener('click', () => this.app.showScreen('login'));
 
         // DAW buttons
@@ -218,20 +230,17 @@ class SignInScreen {
 
     signIn() {
         const usernameInput = document.getElementById('usernameInput');
+        const emailInput = document.getElementById('emailInput');
         const passwordInput = document.getElementById('passwordInput');
-        const sampleInput = document.getElementById('sampleInput');
-        const projectInput = document.getElementById('projectInput');
 
         this.userPrefs.username = usernameInput.value;
+        this.userPrefs.email = emailInput.value;
         this.userPrefs.password = passwordInput.value;
-        this.userPrefs.sample_destination = sampleInput.value;
-        this.userPrefs.project_folder = projectInput.value;
 
         // Reset error styles
         usernameInput.classList.remove('error');
+        emailInput.classList.remove('error');
         passwordInput.classList.remove('error');
-        sampleInput.classList.remove('error');
-        projectInput.classList.remove('error');
 
         let incompleteFields = [];
 
@@ -240,19 +249,14 @@ class SignInScreen {
             incompleteFields.push('Username');
         }
 
+        if (!this.userPrefs.email) {
+            emailInput.classList.add('error');
+            incompleteFields.push('Email');
+        }
+
         if (!this.userPrefs.password) {
             passwordInput.classList.add('error');
             incompleteFields.push('Password');
-        }
-
-        if (!this.userPrefs.sample_destination) {
-            sampleInput.classList.add('error');
-            incompleteFields.push('Sample Destination');
-        }
-
-        if (!this.userPrefs.project_folder) {
-            projectInput.classList.add('error');
-            incompleteFields.push('Project Folder');
         }
 
         if (!this.userPrefs.preferred_daw) {
@@ -267,13 +271,24 @@ class SignInScreen {
             this.userPrefs.saveToStorage();
             console.log('Sign in successful! All fields complete and saved to localStorage');
             console.log(`Username: ${this.userPrefs.username}`);
-            console.log(`Sample Destination: ${this.userPrefs.sample_destination}`);
-            console.log(`Project Folder: ${this.userPrefs.project_folder}`);
+            console.log(`Email: ${this.userPrefs.email}`);
             console.log(`Preferred DAW: ${this.userPrefs.preferred_daw}`);
 
             // Go to UserScreen
             this.app.showScreen('user');
         }
+    }
+
+    signInWithGoogle() {
+        console.log('Sign in with Google clicked');
+        alert('Google OAuth integration coming soon!');
+        // TODO: Implement Google OAuth
+    }
+
+    signInWithDiscord() {
+        console.log('Sign in with Discord clicked');
+        alert('Discord OAuth integration coming soon!');
+        // TODO: Implement Discord OAuth
     }
 }
 
@@ -285,6 +300,9 @@ class UserScreen {
     }
 
     render() {
+        const showInstall = !this.userPrefs.anticheat_installed;
+        const showReconfigureReinstall = this.userPrefs.anticheat_installed;
+
         return `
             <div class="container">
                 <h1 class="title">User Profile</h1>
@@ -296,23 +314,40 @@ class UserScreen {
                     </div>
 
                     <div class="profile-item">
+                        <div class="profile-label">Email:</div>
+                        <div class="profile-value">${this.userPrefs.email}</div>
+                    </div>
+
+                    <div class="profile-item">
                         <div class="profile-label">Sample Destination:</div>
-                        <div class="profile-value">${this.userPrefs.sample_destination}</div>
+                        <div class="profile-value">${this.userPrefs.sample_destination || 'Not configured'}</div>
                     </div>
 
                     <div class="profile-item">
                         <div class="profile-label">Project Folder:</div>
-                        <div class="profile-value">${this.userPrefs.project_folder}</div>
+                        <div class="profile-value">${this.userPrefs.project_folder || 'Not configured'}</div>
                     </div>
 
                     <div class="profile-item">
                         <div class="profile-label">Preferred DAW:</div>
                         <div class="profile-value">${this.userPrefs.preferred_daw}</div>
                     </div>
+
+                    <div class="profile-item">
+                        <div class="profile-label">Anti-Cheat Status:</div>
+                        <div class="profile-value">${this.userPrefs.anticheat_installed ? '✓ Installed' : '✗ Not Installed'}</div>
+                    </div>
                 </div>
 
                 <div class="button-frame">
-                    <button class="btn" id="generateSamplesBtn">Generate Samples</button>
+                    ${showInstall ? `
+                        <button class="btn btn-install" id="installAnticheatBtn">Install Anti-Cheat</button>
+                    ` : ''}
+                    ${showReconfigureReinstall ? `
+                        <button class="btn" id="reconfigureBtn">Reconfigure</button>
+                        <button class="btn" id="reinstallBtn">Reinstall</button>
+                    ` : ''}
+                    <button class="btn" id="generateSamplesBtn" ${!this.userPrefs.anticheat_installed ? 'disabled' : ''}>Generate Samples</button>
                     <button class="btn" id="settingsBtn">Settings</button>
                     <button class="btn" id="logoutBtn">Log Out</button>
                 </div>
@@ -321,9 +356,94 @@ class UserScreen {
     }
 
     attachEvents() {
-        document.getElementById('generateSamplesBtn').addEventListener('click', () => this.generateSamples());
+        // Install button
+        const installBtn = document.getElementById('installAnticheatBtn');
+        if (installBtn) {
+            installBtn.addEventListener('click', () => this.installAnticheat());
+        }
+
+        // Reconfigure button
+        const reconfigureBtn = document.getElementById('reconfigureBtn');
+        if (reconfigureBtn) {
+            reconfigureBtn.addEventListener('click', () => this.reconfigureAnticheat());
+        }
+
+        // Reinstall button
+        const reinstallBtn = document.getElementById('reinstallBtn');
+        if (reinstallBtn) {
+            reinstallBtn.addEventListener('click', () => this.reinstallAnticheat());
+        }
+
+        // Generate Samples (only enabled if anticheat installed)
+        const generateBtn = document.getElementById('generateSamplesBtn');
+        if (generateBtn && !generateBtn.disabled) {
+            generateBtn.addEventListener('click', () => this.generateSamples());
+        }
+
         document.getElementById('settingsBtn').addEventListener('click', () => this.openSettings());
         document.getElementById('logoutBtn').addEventListener('click', () => this.logout());
+    }
+
+    installAnticheat() {
+        console.log('Install Anti-Cheat clicked');
+
+        // Trigger download of installer
+        const link = document.createElement('a');
+        link.href = 'bbac://install'; // Protocol handler
+        link.click();
+
+        // Show instructions
+        const confirmed = confirm(
+            'Anti-Cheat Installer\n\n' +
+            '1. The BBACSetup.exe installer will download\n' +
+            '2. Run the installer when download completes\n' +
+            '3. Click OK after installation is complete\n\n' +
+            'Click OK to mark as installed, or Cancel to try again later.'
+        );
+
+        if (confirmed) {
+            this.userPrefs.anticheat_installed = true;
+            this.userPrefs.saveToStorage();
+            this.app.showScreen('user'); // Refresh to show new buttons
+            alert('Anti-Cheat marked as installed! You can now generate samples.');
+        }
+    }
+
+    reconfigureAnticheat() {
+        console.log('Reconfigure Anti-Cheat clicked');
+
+        // Show configuration dialog
+        const newPath = prompt(
+            'Enter Anti-Cheat installation path:',
+            this.userPrefs.anticheat_directory
+        );
+
+        if (newPath !== null && newPath.trim() !== '') {
+            this.userPrefs.anticheat_directory = newPath.trim();
+            this.userPrefs.saveToStorage();
+            alert('Anti-Cheat path updated to: ' + newPath);
+        }
+    }
+
+    reinstallAnticheat() {
+        console.log('Reinstall Anti-Cheat clicked');
+
+        const confirmed = confirm(
+            'This will download and reinstall the Anti-Cheat plugin.\n\n' +
+            'Proceed with reinstallation?'
+        );
+
+        if (confirmed) {
+            // Trigger reinstall
+            const link = document.createElement('a');
+            link.href = 'bbac://install';
+            link.click();
+
+            alert(
+                'Reinstaller downloading...\n\n' +
+                'Run BBACSetup.exe when download completes.'
+            );
+        }
     }
 
     generateSamples() {

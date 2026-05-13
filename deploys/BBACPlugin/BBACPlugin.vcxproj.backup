@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>18.0</VCProjectVersion>
+    <ProjectGuid>{E5265D61-5629-AFB2-7E8B-82A32E3415AB}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v145</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v145</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v145</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v145</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <WarningLevel>Level3</WarningLevel>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <WarningLevel>Level3</WarningLevel>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <WarningLevel>Level3</WarningLevel>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <WarningLevel>Level3</WarningLevel>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="BBACPlugin.cpp" />
+    <ClCompile Include="build\pwd\cmakefiles\4.2.3-msvc3\compileridcxx\CMakeCXXCompilerId.cpp" />
+    <ClCompile Include="build\pwd\cmakefiles\4.2.3-msvc3\compileridc\CMakeCCompilerId.c" />
+    <ClCompile Include="build\pwd\vst3sdk\vstgui.build\vstgui\lib\cmakefiles\vstgui.dir\cmake_pch.cxx" />
+    <ClCompile Include="build\pwd\vst3sdk\vstgui.build\vstgui\uidescription\cmakefiles\vstgui_uidescription.dir\cmake_pch.cxx" />
+    <ClCompile Include="build_cmake\cmakefiles\4.3.2\compileridcxx\CMakeCXXCompilerId.cpp" />
+    <ClCompile Include="build_cmake\cmakefiles\4.3.2\compileridc\CMakeCCompilerId.c" />
+    <ClCompile Include="build_cmake\vst3sdk\vstgui.build\vstgui\lib\cmakefiles\vstgui.dir\cmake_pch.cxx" />
+    <ClCompile Include="build_cmake\vst3sdk\vstgui.build\vstgui\uidescription\cmakefiles\vstgui_uidescription.dir\cmake_pch.cxx" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="BBACPlugin.def" />
+    <None Include="build\pwd\cmakefiles\4.2.3-msvc3\CMakeDetermineCompilerABI_C.bin" />
+    <None Include="build\pwd\cmakefiles\4.2.3-msvc3\CMakeDetermineCompilerABI_CXX.bin" />
+    <None Include="build_cmake\cmakefiles\4.3.2\CMakeDetermineCompilerABI_C.bin" />
+    <None Include="build_cmake\cmakefiles\4.3.2\CMakeDetermineCompilerABI_CXX.bin" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="BBACPlugin.h" />
+    <ClInclude Include="build\pwd\projectversion.h" />
+    <ClInclude Include="build\pwd\vst3sdk\public.sdk\samples\vst\adelay\projectversion.h" />
+    <ClInclude Include="build\pwd\vst3sdk\public.sdk\samples\vst\again\projectversion.h" />
+    <ClInclude Include="build\pwd\vst3sdk\public.sdk\samples\vst\again_sampleaccurate\projectversion.h" />
+    <ClInclude Include="build\pwd\vst3sdk\public.sdk\samples\vst\channelcontext\projectversion.h" />
+    <ClInclude Include="build\pwd\vst3sdk\public.sdk\samples\vst\dataexchange\projectversion.h" />
+    <ClInclude Include="build\pwd\vst3sdk\public.sdk\samples\vst\hostchecker\projectversion.h" />
+    <ClInclude Include="build\pwd\vst3sdk\public.sdk\samples\vst\legacymidiccout\projectversion.h" />
+    <ClInclude Include="build\pwd\vst3sdk\public.sdk\samples\vst\mda-vst3\projectversion.h" />
+    <ClInclude Include="build\pwd\vst3sdk\public.sdk\samples\vst\multiple_programchanges\projectversion.h" />
+    <ClInclude Include="build\pwd\vst3sdk\public.sdk\samples\vst\note_expression_synth\projectversion.h" />
+    <ClInclude Include="build\pwd\vst3sdk\public.sdk\samples\vst\note_expression_text\projectversion.h" />
+    <ClInclude Include="build\pwd\vst3sdk\public.sdk\samples\vst\panner\projectversion.h" />
+    <ClInclude Include="build\pwd\vst3sdk\public.sdk\samples\vst\pitchnames\projectversion.h" />
+    <ClInclude Include="build\pwd\vst3sdk\public.sdk\samples\vst\prefetchablesupport\projectversion.h" />
+    <ClInclude Include="build\pwd\vst3sdk\public.sdk\samples\vst\programchange\projectversion.h" />
+    <ClInclude Include="build\pwd\vst3sdk\public.sdk\samples\vst\remap_paramid\projectversion.h" />
+    <ClInclude Include="build\pwd\vst3sdk\public.sdk\samples\vst\syncdelay\projectversion.h" />
+    <ClInclude Include="build\pwd\vst3sdk\public.sdk\samples\vst\utf16name\projectversion.h" />
+    <ClInclude Include="build\pwd\vst3sdk\vstgui.build\vstgui\lib\cmakefiles\vstgui.dir\debug\cmake_pch.hxx" />
+    <ClInclude Include="build\pwd\vst3sdk\vstgui.build\vstgui\lib\cmakefiles\vstgui.dir\releaselto\cmake_pch.hxx" />
+    <ClInclude Include="build\pwd\vst3sdk\vstgui.build\vstgui\lib\cmakefiles\vstgui.dir\release\cmake_pch.hxx" />
+    <ClInclude Include="build\pwd\vst3sdk\vstgui.build\vstgui\uidescription\cmakefiles\vstgui_uidescription.dir\debug\cmake_pch.hxx" />
+    <ClInclude Include="build\pwd\vst3sdk\vstgui.build\vstgui\uidescription\cmakefiles\vstgui_uidescription.dir\releaselto\cmake_pch.hxx" />
+    <ClInclude Include="build\pwd\vst3sdk\vstgui.build\vstgui\uidescription\cmakefiles\vstgui_uidescription.dir\release\cmake_pch.hxx" />
+    <ClInclude Include="build_cmake\projectversion.h" />
+    <ClInclude Include="build_cmake\vst3sdk\public.sdk\samples\vst\adelay\projectversion.h" />
+    <ClInclude Include="build_cmake\vst3sdk\public.sdk\samples\vst\again\projectversion.h" />
+    <ClInclude Include="build_cmake\vst3sdk\public.sdk\samples\vst\again_sampleaccurate\projectversion.h" />
+    <ClInclude Include="build_cmake\vst3sdk\public.sdk\samples\vst\channelcontext\projectversion.h" />
+    <ClInclude Include="build_cmake\vst3sdk\public.sdk\samples\vst\dataexchange\projectversion.h" />
+    <ClInclude Include="build_cmake\vst3sdk\public.sdk\samples\vst\hostchecker\projectversion.h" />
+    <ClInclude Include="build_cmake\vst3sdk\public.sdk\samples\vst\legacymidiccout\projectversion.h" />
+    <ClInclude Include="build_cmake\vst3sdk\public.sdk\samples\vst\mda-vst3\projectversion.h" />
+    <ClInclude Include="build_cmake\vst3sdk\public.sdk\samples\vst\multiple_programchanges\projectversion.h" />
+    <ClInclude Include="build_cmake\vst3sdk\public.sdk\samples\vst\note_expression_synth\projectversion.h" />
+    <ClInclude Include="build_cmake\vst3sdk\public.sdk\samples\vst\note_expression_text\projectversion.h" />
+    <ClInclude Include="build_cmake\vst3sdk\public.sdk\samples\vst\panner\projectversion.h" />
+    <ClInclude Include="build_cmake\vst3sdk\public.sdk\samples\vst\pitchnames\projectversion.h" />
+    <ClInclude Include="build_cmake\vst3sdk\public.sdk\samples\vst\prefetchablesupport\projectversion.h" />
+    <ClInclude Include="build_cmake\vst3sdk\public.sdk\samples\vst\programchange\projectversion.h" />
+    <ClInclude Include="build_cmake\vst3sdk\public.sdk\samples\vst\remap_paramid\projectversion.h" />
+    <ClInclude Include="build_cmake\vst3sdk\public.sdk\samples\vst\syncdelay\projectversion.h" />
+    <ClInclude Include="build_cmake\vst3sdk\public.sdk\samples\vst\utf16name\projectversion.h" />
+    <ClInclude Include="build_cmake\vst3sdk\vstgui.build\vstgui\lib\cmakefiles\vstgui.dir\debug\cmake_pch.hxx" />
+    <ClInclude Include="build_cmake\vst3sdk\vstgui.build\vstgui\lib\cmakefiles\vstgui.dir\releaselto\cmake_pch.hxx" />
+    <ClInclude Include="build_cmake\vst3sdk\vstgui.build\vstgui\lib\cmakefiles\vstgui.dir\release\cmake_pch.hxx" />
+    <ClInclude Include="build_cmake\vst3sdk\vstgui.build\vstgui\uidescription\cmakefiles\vstgui_uidescription.dir\debug\cmake_pch.hxx" />
+    <ClInclude Include="build_cmake\vst3sdk\vstgui.build\vstgui\uidescription\cmakefiles\vstgui_uidescription.dir\releaselto\cmake_pch.hxx" />
+    <ClInclude Include="build_cmake\vst3sdk\vstgui.build\vstgui\uidescription\cmakefiles\vstgui_uidescription.dir\release\cmake_pch.hxx" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

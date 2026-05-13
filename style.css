@@ -266,3 +266,91 @@ body {
     color: var(--white);
     text-align: center;
 }
+
+/* OAuth Buttons */
+.btn-google {
+    background-color: #4285f4;
+    color: white;
+    border: none;
+    margin: 5px;
+}
+
+    .btn-google:hover {
+        background-color: #357ae8;
+        transform: translateY(-2px);
+    }
+
+.btn-discord {
+    background-color: #5865f2;
+    color: white;
+    border: none;
+    margin: 5px;
+}
+
+    .btn-discord:hover {
+        background-color: #4752c4;
+        transform: translateY(-2px);
+    }
+
+/* Install Anti-Cheat Button */
+.btn-install {
+    background-color: #2ecc71;
+    color: white;
+    font-weight: bold;
+    border: none;
+    margin: 5px;
+}
+
+    .btn-install:hover {
+        background-color: #27ae60;
+        transform: translateY(-2px);
+    }
+
+/* Disabled Button State */
+.btn:disabled {
+    background-color: #95a5a6 !important;
+    color: #7f8c8d !important;
+    cursor: not-allowed;
+    opacity: 0.5;
+    transform: none !important;
+}
+
+    .btn:disabled:hover {
+        background-color: #95a5a6 !important;
+        transform: none !important;
+    }
+
+/* Email input styling (if needed) */
+input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+    input[type="email"]:focus {
+        outline: none;
+        border-color: #ff4d4d;
+        box-shadow: 0 0 5px rgba(255, 77, 77, 0.3);
+    }
+
+/* Button Frame adjustments for multiple OAuth buttons */
+.button-frame {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .button-frame {
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 100%;
+    }
+}
